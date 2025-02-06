@@ -1,5 +1,5 @@
 # congressional-voting-simulation
-## Jack Regan, Willow, Irene, Devin Downey, Jacob Margolis
+## Jack Regan, Willow Kaplan, Irene Feng, Devin Downey, Jacob Margolis
 
 ### Timeline
 
