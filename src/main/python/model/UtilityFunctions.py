@@ -1,3 +1,3 @@
 class UtilityFunctions:
-  
-  def _init__(self):
+
+  # Add calculation functions as necessary
