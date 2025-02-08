@@ -22,8 +22,10 @@ Jack Regan, Willow Kaplan, Irene Feng, Devin Downey, Jacob Margolis
     be run.
 
 
-* Driver (Run Class)
+* Driver (Driver Class)
   * Initializes all classes and translate information between file objects and model.
 
+* Agent (Agent Class)
+  * Holds state for all parameters of the agent
 
 
