@@ -6,7 +6,26 @@ class Agent:
         self.paramThree = paramThree
         self.paramFour = paramFour
         
-    def updateParamOne (newValue):
+    def setParamOne (self, newValue):
         paramOne = newValue
         
-    ## Add get and set methods for all parameters once simulation has been determined
+    def setParamTwo (self, newValue):
+        paramTwo = newValue
+        
+    def setParamThree (self, newValue):
+        paramThree = newValue
+        
+    def setParamFour (self, newValue):
+        paramFour = newValue
+        
+    def getParamOne (self):
+        return self.paramOne
+    
+    def getParamTwo (self):
+        return self.paramTwo
+    
+    def getParamThree (self):
+        return self.paramThree
+    
+    def getParamFour (self):
+        return self.paramFour
