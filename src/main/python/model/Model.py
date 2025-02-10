@@ -13,7 +13,7 @@ class Model:
         """
     def runRoutine(self):
         agentList = []
-        for i in range(self.agents):
+        #for i in range(self.agents):
         # Add parameter values from agentData
            # agentList.append(Agent(Param, Param, Param, Param))
             

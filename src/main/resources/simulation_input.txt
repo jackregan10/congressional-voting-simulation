@@ -1,7 +1,5 @@
-10000 /* periodsEnd */
-100 /* runs */
-0 /* printPeriodData */
-1 /* printEveryNPeriods */
-0 /* dataTakingForm */
-1000 1000 100 /* N */
-# add parameter specific data
+10000
+100
+0
+1
+0

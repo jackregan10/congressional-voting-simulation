@@ -1,3 +1,3 @@
-class UtilityFunctions:
+# class UtilityFunctions:
 
   # Add calculation functions as necessary
