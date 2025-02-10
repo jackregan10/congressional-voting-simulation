@@ -1,4 +1,5 @@
 import pandas as pd
+from os.path import exists
 
 class WriteFile:
     
@@ -17,7 +18,15 @@ class WriteFile:
         """
     def writeFile (self):        
         try:
-            self.output_data.to_csv("./main/output/Defection-Simulation-Output.csv", index=False)
+            outFile = "./main/output/Defection-Simulation-Output.csv"
+            if exists(outFile):
+                i = 1
+                outFile = "./main/output/Defection-Simulation-Output-" + str(i) + ".csv"
+                while exists(outFile):
+                    i += 1
+                    outFile = "./main/output/Defection-Simulation-Output-" + str(i) + ".csv"
+                    
+            self.output_data.to_csv(outFile, index=False)
         
         except Exception as e:
             print(f"Error writing DataFrame: {str(e)} to csv.")

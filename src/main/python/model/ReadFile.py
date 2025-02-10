@@ -15,11 +15,20 @@ class ReadFile:
     Author: Jack Regan
     """
     def readFile (self):
-        input_data = pd.read_csv(self.file_path)
-    
-        print(input_data.head)
-        print(input_data.columns)
+        parameters = list()
+        input = open(self.file_path)
         
-        return input_data
+        for line in input:
+            words = line.split()
+            parameterString = list()
+            for word in words:
+                try: parameterString.append(float(word))
+                except: break
+                
+        parameters.append(parameterString)
+        input.close()
+    
+        print(parameters.toString())
+        return parameters
     
     
