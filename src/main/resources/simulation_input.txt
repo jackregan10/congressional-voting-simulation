@@ -1,5 +1,16 @@
-10000
-100
-0
-1
-0
+10000 /* periodsEnd */
+100 /* Iterations */
+0 /* printPeriodData */
+1 /* printEveryNPeriods */
+0 /* dataTakingForm */
+1000 1000 100 /* N */
+.5 /* PolarizationMean */
+.2 /* Polarizationstdev */
+.5 /* ReelectionProxMean */
+.2 /* ReelectionProxstdev */
+.5 /* GroupThinkScoreMean */
+.2 /* GroupThinkScorestdev */
+.5 /* ConformityMean */
+.2 /* Conformitystdev */
+.01 /* HistoricalRate */
+.01 /* DecayRate */

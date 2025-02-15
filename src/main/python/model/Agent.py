@@ -1,31 +1,39 @@
 class Agent:
+    """
+    Keeps track of parameter data for each agent
     
-    def __init__ (self, paramOne, paramTwo, paramThree, paramFour):
-        self.paramOne = paramOne
-        self.paramTwo = paramTwo
-        self.paramThree = paramThree
-        self.paramFour = paramFour
-        
-    def setParamOne (self, newValue):
-        paramOne = newValue
-        
-    def setParamTwo (self, newValue):
-        paramTwo = newValue
-        
-    def setParamThree (self, newValue):
-        paramThree = newValue
-        
-    def setParamFour (self, newValue):
-        paramFour = newValue
-        
-    def getParamOne (self):
-        return self.paramOne
+    Author: Jack Regan
+    """
     
-    def getParamTwo (self):
-        return self.paramTwo
+    def __init__ (self, p, rep, g, c):
+        self.polarization = p
+        self.reelectionProx = rep
+        self.groupThinkScore = g
+        self.conformity = c
     
-    def getParamThree (self):
-        return self.paramThree
+    ## Agent parameter set methods
+    def setPolarization (self, newValue):
+        polarization = newValue
+        
+    def setReelectionProx (self, newValue):
+        reelectionProx = newValue
+        
+    def setGroupThinkScore (self, newValue):
+        groupThinkScore = newValue
+        
+    def setConformity (self, newValue):
+        conformity = newValue
+        
+        
+    ## Agent parameter get methods
+    def getPolarization (self):
+        return self.polarization
     
-    def getParamFour (self):
-        return self.paramFour
+    def getReelectionProx (self):
+        return self.relectionProx
+    
+    def getGroupThinkScore (self):
+        return self.groupThinkScore
+    
+    def getConformity (self):
+        return self.conformity

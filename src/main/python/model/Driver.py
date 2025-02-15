@@ -2,34 +2,46 @@ from ReadFile import ReadFile
 from WriteFile import WriteFile
 import pandas as pd
 
+from main.python.model import Model
 
+
+"""
+Call main funciton to read input file, run simulation, and output excel sheet
+    
+Author: Jack Regan
+"""
 class Driver:
     
 
     def runModel(self):
+        
+        fileReader = ReadFile("src/main/resources/simulation_input.txt")
+        fileReader.readFile()
+        singleValues = fileReader.getSingleValues()
+        
+        model = Model(singleValues)
+        history = model.runRoutine()
+        
+        parameterData = pd.DataFrame({
+                "Periods End": [singleValues[0]], 
+                "Runs": [singleValues[1]], 
+                "Print Period Data": [singleValues[2]], 
+                "Print Every N Periods": [singleValues[3]], 
+                "DataTakingForm": [singleValues[4]]
+            })
+        
+        
         outputData = pd.DataFrame({
-                "Output Data One": [0], 
-                "Output Data Two": [0], 
+                "Num Vote": [0], 
+                "Probability of Defection": [0], 
                 "Output Data Three": [0], 
                 "Output Data Four": [0], 
                 "Output Data Five": [0],
                 "Output Data Six": [0]
             })
         
-        fileReader = ReadFile("src/main/resources/simulation_input.txt")
+       
         
-        parameters = fileReader.readFile()
-        
-        parameterData = pd.DataFrame({
-                "Periods End": [parameters[0]], 
-                "Runs": [parameters[1]], 
-                "Print Period Data": [parameters[2]], 
-                "Print Every N Periods": [parameters[3]], 
-                "DataTakingForm": [parameters[4]]
-            })
-        
-        
-        # outputData = Model.runModel(outputData)
         fileWriter = WriteFile()
         
         fileWriter.writeFile(parameterData, outputData)
