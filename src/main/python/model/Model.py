@@ -11,7 +11,7 @@ Author: Jack Regan
 class Model:    
     
     def __init__ (self, agentParameters):
-        self.agent = self.defineAgent(agentParameters)
+        self.agentParameters = agentParameters
         self.decayRate = agentParameters["DecayRate"]
         self.historicalRate = agentParameters["HistoricalRate"]
         self.iterations = agentParameters["Iterations"]
@@ -32,7 +32,8 @@ class Model:
     # Determine current defection rate with a logisitca equation
     # Logistic Parameters: polarization, reelection proximity, group think score, conformity score
     def determineDefectionRate(self):
-        linearCombination = self.agent.getPolarization() + self.agent.getReelectionProx() + self.agent.getGroupThinkScore() + self.agent.getConformity()
+        agent = self.defineAgent(self.agentParameters)
+        linearCombination = agent.getPolarization() + agent.getReelectionProx() + agent.getGroupThinkScore() + agent.getConformity()
         currentDefectionRate = 1 / (1 + np.exp(-linearCombination))
         return currentDefectionRate
   
@@ -41,7 +42,6 @@ class Model:
         defectionRateDifference = self.defectionRateHistory[len(self.defectionRateHistory) - 1] - currentDefectionRate
         
         defection_influence = np.tanh(defectionRateDifference) * self.historicalRate * np.exp(self.decayRate * len(self.defectionRateHistory))
-        
         return currentDefectionRate + defection_influence
     
     # Define an agent's random parameters using a normal distribution

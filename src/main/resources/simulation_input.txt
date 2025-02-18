@@ -1,5 +1,5 @@
 10000 /* periodsEnd */
-100 /* Iterations */
+1000 /* Iterations */
 0 /* printPeriodData */
 1 /* printEveryNPeriods */
 0 /* dataTakingForm */

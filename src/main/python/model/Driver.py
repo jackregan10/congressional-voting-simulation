@@ -32,7 +32,7 @@ class Driver:
         
         
         outputData = pd.DataFrame({
-                "Num Vote": list(range(1,101)), 
+                "Num Vote": list(range(1,int(singleValues["Iterations"]) + 1)), 
                 "Probability of Defection": history
             })
         
