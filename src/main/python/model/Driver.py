@@ -1,8 +1,8 @@
 from ReadFile import ReadFile
 from WriteFile import WriteFile
-import pandas as pd
+from Model import Model
 
-from main.python.model import Model
+import pandas as pd
 
 
 """
@@ -15,7 +15,7 @@ class Driver:
 
     def runModel(self):
         
-        fileReader = ReadFile("src/main/resources/simulation_input.txt")
+        fileReader = ReadFile("/src/main/resources/simulation_input.txt")
         fileReader.readFile()
         singleValues = fileReader.getSingleValues()
         
@@ -50,5 +50,5 @@ class Driver:
 if __name__ == "__main__":
 
     simulation = Driver()
-
+    
     simulation.runModel()

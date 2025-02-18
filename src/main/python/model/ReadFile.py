@@ -29,7 +29,7 @@ class ReadFile:
 
             # Extract parameter name from the comment (after "/* ... */")
             comment_match = re.search(r"/\*\s*(.*?)\s*\*/", line)
-            param_name = comment_match.group(1) if comment_match else f"param_{len(single_values) + len(range_values) + 1}"
+            param_name = comment_match.group(1) if comment_match else f"param_{len(self.singleValues) + len(self.rangeValues) + 1}"
 
             # Store in the appropriate dictionary
             if len(numbers) == 1:

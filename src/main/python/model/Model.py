@@ -1,7 +1,12 @@
 import numpy as np
 
-from main.python.model import Agent
+from Agent import Agent
 
+"""
+Initializes agent list, runs simulatin routine on data and sets output data
+
+Author: Jack Regan
+"""
 
 class Model:    
     
@@ -12,16 +17,9 @@ class Model:
         self.iterations = agentParameters["Iterations"]
         self.defectionRateHistory = []
         
-        
-        """
-        Initializes agent list, runs simulatin routine on data and sets output data
-        
-        Author: Jack Regan
-        """
-        
     # Main iterated loop
     def runRoutine(self):
-        for i in range(0, self.iterations)
+        for i in range(0, self.iterations):
             prob = self.determineDefectionRate()
             # If first vote, no historical impact will be considered
             if i == 0:
