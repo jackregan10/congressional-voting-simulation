@@ -15,7 +15,7 @@ class Driver:
 
     def runModel(self):
         
-        fileReader = ReadFile("/src/main/resources/simulation_input.txt")
+        fileReader = ReadFile("src/main/resources/simulation_input.txt")
         fileReader.readFile()
         singleValues = fileReader.getSingleValues()
         
@@ -23,21 +23,17 @@ class Driver:
         history = model.runRoutine()
         
         parameterData = pd.DataFrame({
-                "Periods End": [singleValues[0]], 
-                "Runs": [singleValues[1]], 
-                "Print Period Data": [singleValues[2]], 
-                "Print Every N Periods": [singleValues[3]], 
-                "DataTakingForm": [singleValues[4]]
+                "Periods End": [singleValues["periodsEnd"]], 
+                "Runs": [singleValues["Iterations"]], 
+                "Print Period Data": [singleValues["printPeriodData"]], 
+                "Print Every N Periods": [singleValues["printEveryNPeriods"]], 
+                "DataTakingForm": [singleValues["dataTakingForm"]]
             })
         
         
         outputData = pd.DataFrame({
-                "Num Vote": [0], 
-                "Probability of Defection": [0], 
-                "Output Data Three": [0], 
-                "Output Data Four": [0], 
-                "Output Data Five": [0],
-                "Output Data Six": [0]
+                "Num Vote": list(range(1,101)), 
+                "Probability of Defection": history
             })
         
        

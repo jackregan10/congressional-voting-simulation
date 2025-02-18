@@ -1,15 +1,16 @@
 from genericpath import exists
+from pathlib import Path
 import pandas as pd
 import re
 
 class ReadFile:
 
     def __init__ (self, filePath):
-        singleValues = {}
-        rangeValues = {}
+        self.singleValues = {}
+        self.rangeValues = {}
         
         try:
-            self.filePath = filePath
+            self.filePath = Path(filePath)
         except:
             print("File reading error.")
     
@@ -20,24 +21,23 @@ class ReadFile:
     """
     def readFile (self):
     
-        
-       with open(self.filePath, "r") as file:
-        for line in file:
-            # Extract numbers from each line
-            numbers = re.findall(r"[-+]?\d*\.\d+|\d+", line)
-            numbers = [float(n) if '.' in n else int(n) for n in numbers]
+        with open(self.filePath, "r") as file:
+            for line in file:
+                # Extract numbers from each line
+                numbers = re.findall(r"[-+]?\d*\.\d+|\d+", line)
+                numbers = [float(n) if '.' in n else int(n) for n in numbers]
 
-            # Extract parameter name from the comment (after "/* ... */")
-            comment_match = re.search(r"/\*\s*(.*?)\s*\*/", line)
-            param_name = comment_match.group(1) if comment_match else f"param_{len(self.singleValues) + len(self.rangeValues) + 1}"
+                # Extract parameter name from the comment (after "/* ... */")
+                comment_match = re.search(r"/\*\s*(.*?)\s*\*/", line)
+                param_name = comment_match.group(1) if comment_match else f"param_{len(self.singleValues) + len(self.rangeValues) + 1}"
 
-            # Store in the appropriate dictionary
-            if len(numbers) == 1:
-                self.singleValues[param_name] = numbers[0]
-            elif len(numbers) == 3:
-                self.rangeValues[param_name] = numbers
-            else:
-                print(f"Warning: Unexpected format in line -> {line.strip()}")
+                # Store in the appropriate dictionary
+                if len(numbers) == 1:
+                    self.singleValues[param_name] = numbers[0]
+                elif len(numbers) == 3:
+                    self.rangeValues[param_name] = numbers
+                else:
+                    print(f"Warning: Unexpected format in line -> {line.strip()}")
     
     def getSingleValues(self):
         return self.singleValues

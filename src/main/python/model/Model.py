@@ -10,7 +10,7 @@ Author: Jack Regan
 
 class Model:    
     
-    def _init__ (self, agentParameters):
+    def __init__ (self, agentParameters):
         self.agent = self.defineAgent(agentParameters)
         self.decayRate = agentParameters["DecayRate"]
         self.historicalRate = agentParameters["HistoricalRate"]
@@ -23,32 +23,32 @@ class Model:
             prob = self.determineDefectionRate()
             # If first vote, no historical impact will be considered
             if i == 0:
-                self.history.append(prob)
+                self.defectionRateHistory.append(prob)
             else:
-                self.history.append(self.determineTimeDecay(prob))
-        return self.history
+                self.defectionRateHistory.append(self.determineTimeDecay(prob))
+        return self.defectionRateHistory
         
     
     # Determine current defection rate with a logisitca equation
     # Logistic Parameters: polarization, reelection proximity, group think score, conformity score
     def determineDefectionRate(self):
-        linearCombination = self.agent.getPolarization + self.agent.getReelectionProx + self.agent.getGroupThinkScore, self.agent.getConformtiy
+        linearCombination = self.agent.getPolarization() + self.agent.getReelectionProx() + self.agent.getGroupThinkScore() + self.agent.getConformity()
         currentDefectionRate = 1 / (1 + np.exp(-linearCombination))
         return currentDefectionRate
   
     # Determine effect of time decay on current defection rate using an exponential decay model
     def determineTimeDecay(self, currentDefectionRate):
-        defectionRateDifference = self.history[self.history.len] - currentDefectionRate
+        defectionRateDifference = self.defectionRateHistory[len(self.defectionRateHistory) - 1] - currentDefectionRate
         
-        defection_influence = np.tanh(defectionRateDifference) * self.historicalWeight * np.exp(self.decayRate * (self.history.len + 1))
+        defection_influence = np.tanh(defectionRateDifference) * self.historicalRate * np.exp(self.decayRate * len(self.defectionRateHistory))
         
         return currentDefectionRate + defection_influence
     
     # Define an agent's random parameters using a normal distribution
     def defineAgent(self, agentParameters):
         p = np.random.normal(agentParameters["PolarizationMean"], agentParameters["Polarizationstdev"])
-        rep = np.random.normal(agentParameters["ReelecetionProxMean"], agentParameters["Reelectionproxstdev"])
-        g = np.random.normal(agentParameters["GroupThinkScoreMean"], agentParameters["GroupThinkSocrestdev"])
+        rep = np.random.normal(agentParameters["ReelectionProxMean"], agentParameters["ReelectionProxstdev"])
+        g = np.random.normal(agentParameters["GroupThinkScoreMean"], agentParameters["GroupThinkScorestdev"])
         c = np.random.normal(agentParameters["ConformityMean"], agentParameters["Conformitystdev"])
         
         agent = Agent(p, rep, g, c)

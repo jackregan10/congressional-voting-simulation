@@ -6,10 +6,10 @@ class Agent:
     """
     
     def __init__ (self, p, rep, g, c):
-        self.polarization = p
-        self.reelectionProx = rep
-        self.groupThinkScore = g
-        self.conformity = c
+        self.polarization = float(p)
+        self.reelectionProx = float(rep)
+        self.groupThinkScore = float(g)
+        self.conformity = float(c)
     
     ## Agent parameter set methods
     def setPolarization (self, newValue):
@@ -30,7 +30,7 @@ class Agent:
         return self.polarization
     
     def getReelectionProx (self):
-        return self.relectionProx
+        return self.reelectionProx
     
     def getGroupThinkScore (self):
         return self.groupThinkScore
