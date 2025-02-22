@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 from Agent import Agent
 
@@ -12,21 +13,54 @@ class Model:
     
     def __init__ (self, agentParameters):
         self.agentParameters = agentParameters
+        self.agentMean = np.double([
+            agentParameters["PolarizationMean"], 
+            agentParameters["ReelectionProxMean"], 
+            agentParameters["GroupThinkScoreMean"], 
+            agentParameters["ConformityMean"]
+        ])
         self.decayRate = agentParameters["DecayRate"]
         self.historicalRate = agentParameters["HistoricalRate"]
         self.iterations = agentParameters["Iterations"]
-        self.defectionRateHistory = []
+        self.cycles = agentParameters["Cycles"]
+        self.numParameters = agentParameters["NumParameters"]
         
     # Main iterated loop
     def runRoutine(self):
-        for i in range(0, self.iterations):
-            prob = self.determineDefectionRate()
-            # If first vote, no historical impact will be considered
-            if i == 0:
-                self.defectionRateHistory.append(prob)
-            else:
-                self.defectionRateHistory.append(self.determineTimeDecay(prob))
-        return self.defectionRateHistory
+        outputData = pd.DataFrame({
+            "Num Vote": list(range(1, self.iterations + 1)), 
+        })
+        for params in range(int(self.numParameters)):
+            innerIndex = 4
+            for cycle in range(innerIndex):
+                parameterValues = [
+                        self.agentMean[0],
+                        self.agentMean[1],
+                        self.agentMean[2],
+                        self.agentMean[3]
+                ]
+                # Append the new DataFrame to outputData
+                paramsHeader = f"Parameters {params}:{cycle}"
+                outputData[paramsHeader] = pd.Series(parameterValues)
+                            
+                defectionRateHistory = []
+                            # Update defection history and agent mean for each iteration
+                for iteration in range(self.iterations):
+                    prob = self.determineDefectionRate()
+                    if iteration == 0:
+                        defectionRateHistory.append(prob)
+                    else:
+                        defectionRateHistory.append(self.determineTimeDecay(prob, defectionRateHistory))
+                                
+                        # Update agent mean after the cycle (assuming you meant to update this)
+                defectionHeader = f"Defection Rate {params}:{cycle}"
+                outputData[defectionHeader] = defectionRateHistory
+                self.agentMean[params] += 0.2
+                if params == 3 and cycle == 2:
+                    cycle -= 1
+            if params == 0:
+                innerIndex -= 1
+        return outputData
         
     
     # Determine current defection rate with a logisitca equation
@@ -38,10 +72,10 @@ class Model:
         return currentDefectionRate
   
     # Determine effect of time decay on current defection rate using an exponential decay model
-    def determineTimeDecay(self, currentDefectionRate):
-        defectionRateDifference = self.defectionRateHistory[len(self.defectionRateHistory) - 1] - currentDefectionRate
+    def determineTimeDecay(self, currentDefectionRate, defectionRateHistory):
+        defectionRateDifference = defectionRateHistory[len(defectionRateHistory) - 1] - currentDefectionRate
         
-        defection_influence = np.tanh(defectionRateDifference) * self.historicalRate * np.exp(self.decayRate * len(self.defectionRateHistory))
+        defection_influence = np.tanh(defectionRateDifference) * self.historicalRate * np.exp(self.decayRate * len(defectionRateHistory))
         return currentDefectionRate + defection_influence
     
     # Define an agent's random parameters using a normal distribution

@@ -17,30 +17,29 @@ class Driver:
         
         fileReader = ReadFile("src/main/resources/simulation_input.txt")
         fileReader.readFile()
-        singleValues = fileReader.getSingleValues()
+        parameters = fileReader.getSingleValues()
         
-        model = Model(singleValues)
-        history = model.runRoutine()
+        model = Model(parameters)
+        output = model.runRoutine()
         
         parameterData = pd.DataFrame({
-                "Periods End": [singleValues["periodsEnd"]], 
-                "Runs": [singleValues["Iterations"]], 
-                "Print Period Data": [singleValues["printPeriodData"]], 
-                "Print Every N Periods": [singleValues["printEveryNPeriods"]], 
-                "DataTakingForm": [singleValues["dataTakingForm"]]
-            })
-        
-        
-        outputData = pd.DataFrame({
-                "Num Vote": list(range(1,int(singleValues["Iterations"]) + 1)), 
-                "Probability of Defection": history
-            })
-        
+            "Runs": [parameters["Iterations"]], 
+            "Historical Rate": [parameters["HistoricalRate"]],
+            "Decay Rate": [parameters["DecayRate"]],
+            "Min Polarization Mean": [parameters["PolarizationMean"]],
+            "Max Polarization Mean": [parameters["PolarizationMean"] * parameters["Cycles"]],
+            "Min Reelection Proximity Mean": [parameters["ReelectionProxMean"]],
+            "Max Reelection Proximity Mean": [parameters["ReelectionProxMean"] * parameters["Cycles"]],
+            "Min Group Think Score Mean": [parameters["GroupThinkScoreMean"]],
+            "Max Group Think Score Mean": [parameters["GroupThinkScoreMean"] * parameters["Cycles"]],
+            "Min Conformity Mean": [parameters["ConformityMean"]],
+            "Max Conformity Mean": [parameters["ConformityMean"] * parameters["Cycles"]]
+        })
        
         
         fileWriter = WriteFile()
         
-        fileWriter.writeFile(parameterData, outputData)
+        fileWriter.writeFile(parameterData, output)
         
         
 if __name__ == "__main__":
