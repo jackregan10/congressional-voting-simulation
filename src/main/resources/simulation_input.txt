@@ -1,5 +1,5 @@
 250 /* Iterations */
-5 /* Cycles */
+4 /* Cycles */
 4 /* NumParameters */
 .1 /* PolarizationMean */
 .1 /* Polarizationstdev */

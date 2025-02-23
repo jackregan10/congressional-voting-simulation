@@ -31,8 +31,8 @@ class Model:
             "Num Vote": list(range(1, self.iterations + 1)), 
         })
         for params in range(int(self.numParameters)):
-            innerIndex = 4
-            for cycle in range(innerIndex):
+            cycle = 1
+            while self.agentMean[params] <= 0.9:
                 parameterValues = [
                         self.agentMean[0],
                         self.agentMean[1],
@@ -55,11 +55,11 @@ class Model:
                         # Update agent mean after the cycle (assuming you meant to update this)
                 defectionHeader = f"Defection Rate {params}:{cycle}"
                 outputData[defectionHeader] = defectionRateHistory
-                self.agentMean[params] += 0.2
-                if params == 3 and cycle == 2:
-                    cycle -= 1
-            if params == 0:
-                innerIndex -= 1
+                if self.agentMean[params] < 0.8:
+                    self.agentMean[params] += 0.2
+                else:
+                    break
+                cycle += 1
         return outputData
         
     

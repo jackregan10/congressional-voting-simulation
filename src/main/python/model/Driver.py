@@ -27,13 +27,13 @@ class Driver:
             "Historical Rate": [parameters["HistoricalRate"]],
             "Decay Rate": [parameters["DecayRate"]],
             "Min Polarization Mean": [parameters["PolarizationMean"]],
-            "Max Polarization Mean": [parameters["PolarizationMean"] * parameters["Cycles"]],
+            "Max Polarization Mean": [parameters["PolarizationMean"] + 0.2 * parameters["Cycles"]],
             "Min Reelection Proximity Mean": [parameters["ReelectionProxMean"]],
-            "Max Reelection Proximity Mean": [parameters["ReelectionProxMean"] * parameters["Cycles"]],
+            "Max Reelection Proximity Mean": [parameters["ReelectionProxMean"] + 0.2 * parameters["Cycles"]],
             "Min Group Think Score Mean": [parameters["GroupThinkScoreMean"]],
-            "Max Group Think Score Mean": [parameters["GroupThinkScoreMean"] * parameters["Cycles"]],
+            "Max Group Think Score Mean": [parameters["GroupThinkScoreMean"] + 0.2 * parameters["Cycles"]],
             "Min Conformity Mean": [parameters["ConformityMean"]],
-            "Max Conformity Mean": [parameters["ConformityMean"] * parameters["Cycles"]]
+            "Max Conformity Mean": [parameters["ConformityMean"] + 0.2 * parameters["Cycles"]]
         })
        
         
