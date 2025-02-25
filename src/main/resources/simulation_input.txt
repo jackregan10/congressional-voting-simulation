@@ -9,5 +9,5 @@
 .1 /* GroupThinkScorestdev */
 .1 /* ConformityMean */
 .1 /* Conformitystdev */
-.01 /* HistoricalRate */
-.01 /* DecayRate */
+.1 /* HistoricalRate */
+-.01 /* DecayRate */

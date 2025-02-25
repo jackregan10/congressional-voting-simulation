@@ -4,43 +4,36 @@ import pandas as pd
 import re
 
 class ReadFile:
-
-    def __init__ (self, filePath):
-        self.singleValues = {}
-        self.rangeValues = {}
-        
-        try:
-            self.filePath = Path(filePath)
-        except:
-            print("File reading error.")
-    
     """
-    Reads csv file into a pandas data frame called input_data
-        
+    This class reads the input file and extracts the single values from it.
+    
     Author: Jack Regan
     """
-    def readFile (self):
-    
-        with open(self.filePath, "r") as file:
+    def __init__ (self, file_path):
+        self.single_values = {}
+        try:
+            self.file_path = Path(file_path)
+        except FileNotFoundError as e:
+            print(f"File reading error: {e}")
+    def read_file (self):
+        """
+        Reads csv file into a pandas data frame called input_data
+        """
+        with open(self.file_path, "r", encoding="utf-8") as file:
             for line in file:
-                # Extract numbers from each line
                 numbers = re.findall(r"[-+]?\d*\.\d+|\d+", line)
                 numbers = [float(n) if '.' in n else int(n) for n in numbers]
-
-                # Extract parameter name from the comment (after "/* ... */")
                 comment_match = re.search(r"/\*\s*(.*?)\s*\*/", line)
-                param_name = comment_match.group(1) if comment_match else f"param_{len(self.singleValues) + len(self.rangeValues) + 1}"
-
-                # Store in the appropriate dictionary
+                param_name = comment_match.group(1) if comment_match else f"param_{len(self.single_values) + 1}"
                 if len(numbers) == 1:
-                    self.singleValues[param_name] = numbers[0]
-                elif len(numbers) == 3:
-                    self.rangeValues[param_name] = numbers
+                    self.single_values[param_name] = numbers[0]
                 else:
                     print(f"Warning: Unexpected format in line -> {line.strip()}")
-    
-    def getSingleValues(self):
-        return self.singleValues
-    
-    def getRangeValues(self):
-        return self.rangeValues
+    def get_single_values(self):
+        """
+        Retrieve the single values from the file.
+
+        Returns:
+            list: A list containing the single values.
+        """
+        return self.single_values
