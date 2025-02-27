@@ -1,5 +1,5 @@
+from genericpath import exists
 import pandas as pd
-from os.path import exists
 
 class WriteFile:
     """
