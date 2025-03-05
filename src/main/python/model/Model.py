@@ -41,6 +41,8 @@ class Model:
         })
         for params in range(int(self.num_parameters)):
             cycle = 1
+            if params > 0:
+                self.agent_mean[params] += 0.2
             while self.agent_mean[params] <= 0.9:
                 parameter_values = [
                         self.agent_mean[0],
